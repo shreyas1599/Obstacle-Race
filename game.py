@@ -79,9 +79,42 @@ def quitgame():
     pygame.quit()
     quit()
 
+def rules():
+    rules = True
+    while rules:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    game_intro()
+        gameDisplay.fill(black)
+        font = pygame.font.SysFont(None,75)
+        text = font.render("Rules",True,red)
+        gameDisplay.blit(text,(display_width/2-75,display_height/12))
+        
+        #List of rules
+        font = pygame.font.SysFont(None,30)
+        text = font.render("1. Choose any avatar",True,red)
+        gameDisplay.blit(text,(display_width/10,display_height/4))
+
+        font = pygame.font.SysFont(None,30)
+        text = font.render("2. Use the space bar to keep the avatar in motion",True,red)
+        gameDisplay.blit(text,(display_width/10,display_height/4+20))
+
+        font = pygame.font.SysFont(None,30)
+        text = font.render("3. If it wasn't obvious enough, hitting any obstacle kills you",True,red)
+        gameDisplay.blit(text,(display_width/10,display_height/4+40))
+
+        font = pygame.font.SysFont(None,30)
+        text = font.render("4. Hit the left arrow to exit this page",True,red)
+        gameDisplay.blit(text,(display_width/10,display_height/4+60))
+
+
+        pygame.display.update()
+
 def game_intro():
     intro = True
-
+    gameDisplay.fill(black)
+    pygame.display.update()
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -93,13 +126,11 @@ def game_intro():
         textRect.center = ((1/4)*display_width,(1/4)*display_height)
         gameDisplay.blit(textSurf,textRect)
         button("Start!",(1/8)*display_width,(3/4)*display_height,150,50,bright_green,green,game_loop)
-        #button("Rules",(1/2)*display_width-50,(3/4)*display_height,150,50,(230, 92, 0),(255, 133, 51),rules)
+        button("Rules",(1/2)*display_width-50,(3/4)*display_height,150,50,(230, 92, 0),(255, 133, 51),rules)
         button("Quit",(3/4)*display_width,(3/4)*display_height,150,50,(0, 102, 153),(26, 178, 255),quitgame)
         pygame.display.update()
 
-def rules():
-    gameDisplay.blit("text",(20,20))
-    pygame.display.update()
+
 
 def game_loop():
     x = display_width*0.1
@@ -155,7 +186,7 @@ def game_loop():
         pika(x,y)
         pygame.display.update()
         clock.tick(60)
+
 game_intro()
-game_loop()
 pygame.quit()
 quit()
